@@ -94,7 +94,7 @@ const createDependencies = (overrides: {
       retries: 1
     },
     credentials: { apiKey: 'secret-key' },
-    headers: { 'X-Client-Name': 'api-test-platform' },
+    headers: { 'X-Client-Name': 'mic-check' },
     features: { enablePerf: true },
     testData: { userId: 'qa-user' }
   }),

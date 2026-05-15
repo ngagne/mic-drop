@@ -1,4 +1,4 @@
-# mic-check (api-test-platform)
+# mic-check
 
 A TypeScript API testing platform with a CLI-first workflow for functional and performance journeys.
 

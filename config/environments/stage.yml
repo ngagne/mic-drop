@@ -7,7 +7,7 @@ credentials:
   apiKey: ${STAGE_API_KEY}
   clientSecret: ${STAGE_CLIENT_SECRET}
 headers:
-  X-Client-Name: api-test-platform
+  X-Client-Name: mic-check
 features:
   enableMockAuth: false
   enableVerboseLogging: false

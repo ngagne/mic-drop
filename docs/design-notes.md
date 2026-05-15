@@ -186,7 +186,7 @@ Advantages over XML/UI-driven systems:
 
 Opinionated Project Structure
 
-/api-test-platform
+/mic-check
 ├── package.json
 ├── tsconfig.json
 ├── vitest.config.ts

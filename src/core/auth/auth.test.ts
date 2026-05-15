@@ -84,13 +84,13 @@ describe('auth core', () => {
         password: 'pass'
       },
       headers: {
-        'X-Client-Name': 'api-test-platform'
+        'X-Client-Name': 'mic-check'
       }
     });
 
     const headers = await resolver.buildHeaders(context);
 
-    expect(headers['X-Client-Name']).toBe('api-test-platform');
+    expect(headers['X-Client-Name']).toBe('mic-check');
     expect(headers['x-api-key']).toBe('key-123');
     expect(headers.Authorization).toBe('Basic dXNlcjpwYXNz');
   });
