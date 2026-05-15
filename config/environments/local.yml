@@ -1,0 +1,16 @@
+name: local
+api:
+  baseUrl: http://localhost:3000
+  timeoutMs: 30000
+  retries: 0
+credentials:
+  apiKey: ${LOCAL_API_KEY}
+  clientSecret: ${LOCAL_CLIENT_SECRET}
+headers:
+  X-Client-Name: api-test-platform
+features:
+  enableMockAuth: true
+  enableVerboseLogging: true
+testData:
+  defaultUserId: local-user-1
+  smokeSuiteEnabled: true

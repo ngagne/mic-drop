@@ -1,0 +1,97 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: quality (node ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [20]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm run test
+
+  api-cli:
+    name: api-cli (env=${{ matrix.environment }}, shard=${{ matrix.shard-index }}/${{ matrix.shard-total }})
+    runs-on: ubuntu-latest
+    needs: quality
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [20]
+        environment: [local]
+        shard-index: [1]
+        shard-total: [1]
+    env:
+      CI: true
+      ENVIRONMENT: ${{ matrix.environment }}
+      API_TEST_SHARD_INDEX: ${{ matrix.shard-index }}
+      API_TEST_SHARD_TOTAL: ${{ matrix.shard-total }}
+      LOCAL_API_KEY: ci-local-api-key
+      LOCAL_CLIENT_SECRET: ci-local-client-secret
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Run API test CLI (CI mode)
+        shell: bash
+        run: |
+          mkdir -p logs
+          set -o pipefail
+          npm run start -- run --ci --environment "$ENVIRONMENT" --parallel "$API_TEST_SHARD_TOTAL" \
+            2>&1 | tee "logs/api-test-${ENVIRONMENT}-shard-${API_TEST_SHARD_INDEX}-of-${API_TEST_SHARD_TOTAL}.log"
+
+      - name: Upload run artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-test-artifacts-${{ matrix.environment }}-shard-${{ matrix.shard-index }}-of-${{ matrix.shard-total }}
+          if-no-files-found: ignore
+          retention-days: 14
+          path: |
+            reports/**
+            results/**
+            logs/**
+            perf/**
+            performance/**
+            performance-results/**

@@ -1,0 +1,42 @@
+{
+  "name": "api-test-platform",
+  "version": "0.1.0",
+  "private": true,
+  "description": "API test platform CLI bootstrap",
+  "packageManager": "npm@10.9.2",
+  "bin": {
+    "api-test": "bin/api-test"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "rm -rf dist",
+    "dev:cli": "tsx src/cli.ts",
+    "start": "node dist/src/cli.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint \"{src,config}/**/*.ts\"",
+    "format": "prettier --check .",
+    "format:write": "prettier --write .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "pactum": "^3.7.6",
+    "pino": "^9.4.0",
+    "yaml": "^2.5.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/node": "^22.7.4",
+    "@typescript-eslint/eslint-plugin": "^8.8.1",
+    "@typescript-eslint/parser": "^8.8.1",
+    "eslint": "^9.12.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.3.3",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.59.3",
+    "vitest": "^2.1.2"
+  }
+}

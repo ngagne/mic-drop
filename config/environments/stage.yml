@@ -1,0 +1,16 @@
+name: stage
+api:
+  baseUrl: https://stage-api.example.com
+  timeoutMs: 45000
+  retries: 2
+credentials:
+  apiKey: ${STAGE_API_KEY}
+  clientSecret: ${STAGE_CLIENT_SECRET}
+headers:
+  X-Client-Name: api-test-platform
+features:
+  enableMockAuth: false
+  enableVerboseLogging: false
+testData:
+  defaultUserId: stage-user-1
+  smokeSuiteEnabled: true

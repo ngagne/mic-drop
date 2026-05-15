@@ -1,0 +1,16 @@
+name: dev
+api:
+  baseUrl: https://dev-api.example.com
+  timeoutMs: 30000
+  retries: 1
+credentials:
+  apiKey: ${DEV_API_KEY}
+  clientSecret: ${DEV_CLIENT_SECRET}
+headers:
+  X-Client-Name: api-test-platform
+features:
+  enableMockAuth: false
+  enableVerboseLogging: true
+testData:
+  defaultUserId: dev-user-1
+  smokeSuiteEnabled: true

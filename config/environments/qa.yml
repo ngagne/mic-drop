@@ -1,0 +1,16 @@
+name: qa
+api:
+  baseUrl: https://qa-api.example.com
+  timeoutMs: 45000
+  retries: 2
+credentials:
+  apiKey: ${QA_API_KEY}
+  clientSecret: ${QA_CLIENT_SECRET}
+headers:
+  X-Client-Name: api-test-platform
+features:
+  enableMockAuth: false
+  enableVerboseLogging: true
+testData:
+  defaultUserId: qa-user-1
+  smokeSuiteEnabled: true
